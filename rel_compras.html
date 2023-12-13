@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Compras</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Relatório de Compras</h1>
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Quantidade</th>
+                    <th>Preço</th>
+                    <th>ID da Venda</th>
+                    <th>Total</th>
+                    <th>ID do Usuário</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if compras %}
+                    {% for compra in compras %}
+                        <tr>
+                            <td>{{ compra.id }}</td>
+                            <td>{{ compra.nome }}</td>
+                            <td>{{ compra.desc }}</td>
+                            <td>{{ compra.qtd }}</td>
+                            <td>{{ compra.preco }}</td>
+                            <td>{{ compra.ven_id }}</td>
+                            <td>{{ compra.total_id }}</td>
+                            <td>{{ compra.usu_id }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            
+                {% if compra_info %}
+                    <tr>
+                        <td>{{ compra_info.id }}</td>
+                        <td>{{ compra_info.nome }}</td>
+                        <td>{{ compra_info.desc }}</td>
+                        <td>{{ compra_info.qtd }}</td>
+                        <td>{{ compra_info.preco }}</td>
+                        <td>{{ compra_info.ven_id }}</td>
+                        <td>{{ compra_info.total_id }}</td>
+                        <td>{{ compra_info.usu_id }}</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

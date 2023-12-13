@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Anúncios</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h4>Lista de Anúncios</h4>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#askQuestionModal">
+            Faça uma Pergunta
+        </button>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Quantidade</th>
+                    <th>Preço Unitário</th>
+                    <th>Total</th>
+                    <th>Comprar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for anuncio in anuncios %}
+                    <tr data-anuncio-id="{{ anuncio.id }}">
+                        <td>{{ anuncio.nome }}</td>
+                        <td>{{ anuncio.desc }}</td>
+                        <td>
+                            <input type="number" class="form-control quantity-input" name="quantity" value="1" min="1" data-unit-price="{{ anuncio.preco }}">
+                        </td>
+                        <td class="unit-price">{{ anuncio.preco }}</td>
+                        <td class="total-price">{{ anuncio.preco }}</td>
+                        <td>
+                            <a class="btn btn-primary comprar-btn" onclick="processarCompra({{ anuncio.id }})">Comprar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+   
+    <div class="modal fade" id="askQuestionModal" tabindex="-1" role="dialog" aria-labelledby="askQuestionModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="askQuestionModalLabel">Faça uma Pergunta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    
+                    <div id="chat" style="height: 200px; overflow-y: scroll;"></div>
+                    <textarea id="questionInput" class="form-control mt-2" placeholder="Digite sua pergunta..."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="enviarPergunta()">Enviar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".quantity-input").on("input", function() {
+                var quantity = $(this).val();
+                var unitPrice = $(this).data("unit-price");
+                var totalPrice = (quantity * unitPrice).toFixed(2);
+
+                $(this).closest("tr").find(".unit-price").text(unitPrice);
+                $(this).closest("tr").find(".total-price").text(totalPrice);
+            });
+        });
+
+        function processarCompra(anuncioId) {
+            var quantity = $("tr:has(a.comprar-btn)[data-anuncio-id=" + anuncioId + "]").find("input.quantity-input").val();
+            
+            var data = {
+                anuncioId: anuncioId,
+                quantity: quantity
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/comprar/" + anuncioId,
+                data: data,
+                success: function(response) {
+                    window.location.href = "/rel_compras";
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
+        }
+
+        function enviarPergunta() {
+            var question = $("#questionInput").val();
+            $("#chat").append("<p><strong>Você:</strong> " + question + "</p>");
+
+            
+            
+            $("#questionInput").val("");
+
+           
+            $("#askQuestionModal").modal("hide");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head> 
+    <title>Sistema de Compra e Venda - {{ titulo }}</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <div class="page-header">
+            <h1>Cadastro de {{ titulo }}</h1>
+        </div>
+
+        <form action="/usuario/criar" method="post">
+            <div class="form-group">
+                <label for="user">Username</label>
+                <input type="text" class="form-control" id="user" name="user">
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" id="email" name="email">
+                <small id="emailHelp" class="form-text text-muted">Seu e-mail é a chave para o cadastro.</small>
+            </div> 
+
+            <div class="form-group">
+                <label for="passwd">Password</label>
+                <input type="password" class="form-control" id="passwd" name="passwd">
+            </div>
+
+            <div class="form-group">
+                <label for="end">Endereço</label>
+                <input type="text" class="form-control" id="end" name="end">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                <button type="reset" class="btn btn-secondary">Limpar</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="container mt-4">
+        <div class="page-header">
+            <h1>Lista de {{ titulo }}</h1>
+        </div>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-default">
+                <tr>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Endereço</th>
+                    <th>Editar</th>
+                    <th>Deletar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                    <tr>
+                        <td>{{ usuario.nome }}</td>
+                        <td>{{ usuario.email }}</td>
+                        <td>{{ usuario.end }}</td>
+                        <td><a href="{{ url_for('editarusuario', id=usuario.id) }}" class="btn btn-warning btn-sm">Editar</a></td>
+                        <td><a href="{{ url_for('deletarusuario', id=usuario.id) }}" class="btn btn-danger btn-sm">Deletar</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

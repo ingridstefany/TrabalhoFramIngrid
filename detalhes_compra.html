@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes da Compra</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h4>Detalhes da Compra</h4>
+        <p>Nome do Produto: {{ anuncio.nome }}</p>
+        <p>Descrição: {{ anuncio.desc }}</p>
+        <p>Quantidade: {{ anuncio.qtd }}</p>
+        <p>Preço: R$ {{ anuncio.preco }}</p>
+
+        <a class="btn btn-primary mt-3" href="{{ url_for('rel_compras', nome=anuncio.nome, desc=anuncio.desc, qtd=anuncio.qtd, preco=anuncio.preco) }}">Ver Relatório de Compras</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https

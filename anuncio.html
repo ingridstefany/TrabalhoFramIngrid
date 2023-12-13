@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <title>Sistema de Compra e Venda - {{ titulo }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h4>Cadastro de {{ titulo }}</h4>
+        <form action="/anuncio/criar" method="post">
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" required>
+            </div>
+
+            <div class="form-group">
+                <label for="desc">Descrição</label>
+                <textarea class="form-control" id="desc" name="desc" rows="4" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="qtd">Quantidade</label>
+                <input type="number" class="form-control" id="qtd" name="qtd" required>
+            </div>
+
+            <div class="form-group">
+                <label for="preco">Preço</label>
+                <input type="number" class="form-control" id="preco" name="preco" step="0.01" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="cat">Categoria</label>
+                <select class="form-control" id="cat" name="cat" required>
+                    {% for categoria in categorias %} 
+                        <option value="{{ categoria.id }}">{{ categoria.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="usu">Usuario</label>
+                <select class="form-control" id="usu" name="usu" required>
+                    {% for usuario in usuarios %} 
+                        <option value="{{ usuario.id }}">{{ usuario.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+
+        <h4 class="mt-4">Lista de {{ titulo }}</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Quantidade</th>
+                    <th>Preço</th>
+                    <th>Categoria</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for anuncio in anuncios %}
+                    <tr>
+                        <td>{{ anuncio.nome }}</td>
+                        <td>{{ anuncio.desc }}</td>
+                        <td>{{ anuncio.qtd }}</td>
+                        <td>{{ anuncio.preco }}</td>
+                        <td>{{ anuncio.cat_id }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+</body>
+</html>

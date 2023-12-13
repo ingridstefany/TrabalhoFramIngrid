@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <title>Sistema de Compra e Venda</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h4>Bem-vindo ao Sistema de Compra e Venda</h4>
+        <ul class="list-group">
+            <li class="list-group-item"><a class="text-dark" href="{{ url_for('usuario') }}">Cadastro de Usuário</a></li>
+            <li class="list-group-item"><a class="text-dark" href="{{ url_for('categoria') }}">Cadastrar Categoria</a></li>
+            <li class="list-group-item"><a class="text-dark" href="{{ url_for('anuncio') }}">Cadastro de Anúncio</a></li>
+            <li class="list-group-item"><a class="text-dark" href="{{ url_for('listar_anuncios') }}">Anuncios</a></li>
+            <li class="list-group-item"><a class="text-dark" href="{{ url_for('rel_compras') }}">Relatório de Compras</a></li>
+        </ul>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

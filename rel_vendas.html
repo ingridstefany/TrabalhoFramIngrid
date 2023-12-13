@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Vendas</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+</head>
+<body>
+    <h1>Relatório de Vendas</h1>
+    
+    <p>Total de Vendas: R$ {{ total_vendas }}</p>
+
+    <label for="filtro_mes">Filtrar por Mês:</label>
+    <select id="filtro_mes" name="filtro_mes">
+        <option value="">Todos os Meses</option>
+        {% for mes in meses_distintos %}
+            <option value="{{ mes }}">{{ mes }}</option>
+        {% endfor %}
+    </select>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nome do Anúncio</th>
+            <th>Quantidade</th>
+            <th>Preço</th>
+            <th>Total</th>
+            <th>Data</th>
+            <th>ID do Usuário</th>
+        </tr>
+        {% if vendas %}
+            {% for venda in vendas %}
+                <tr>
+                    <td>{{ venda.id }}</td>
+                    <td>{{ venda.anuncio.nome }}</td>
+                    <td>{{ venda.qtd }}</td>
+                    <td>{{ venda.preco }}</td>
+                    <td>{{ venda.total }}</td>
+                    <td>{{ venda.data }}</td>
+                    <td>{{ venda.usu_id }}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+    </table>
+</body>
+</html>
